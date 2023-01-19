@@ -73,6 +73,13 @@ type Context struct {
 	client *camundaclientgo.Client
 }
 
+func (c *Context) GetClient() *camundaclientgo.Client {
+	return c.client
+}
+func (c *Context) SetClient(client *camundaclientgo.Client) {
+	c.client = client
+}
+
 // Complete a mark external task is complete
 func (c *Context) Complete(query QueryComplete) error {
 	return c.client.ExternalTask.Complete(c.Task.Id, camundaclientgo.QueryComplete{

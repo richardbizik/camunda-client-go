@@ -123,6 +123,40 @@ func NewClient(options ClientOptions) *Client {
 	return client
 }
 
+// NewTestClient a create new instance of testable Client
+func NewTestClient(options ClientOptions, httpClient *http.Client) *Client {
+	client := &Client{
+		httpClient:  httpClient,
+		endpointUrl: DefaultEndpointUrl,
+		userAgent:   DefaultUserAgent,
+		apiUser:     options.ApiUser,
+		apiPassword: options.ApiPassword,
+	}
+
+	if options.EndpointUrl != "" {
+		client.endpointUrl = options.EndpointUrl
+	}
+
+	if options.UserAgent != "" {
+		client.userAgent = options.UserAgent
+	}
+
+	if options.Timeout.Nanoseconds() != 0 {
+		client.httpClient.Timeout = options.Timeout
+	}
+
+	client.ExternalTask = &ExternalTask{client: client}
+	client.Deployment = &Deployment{client: client}
+	client.ProcessDefinition = &ProcessDefinition{client: client}
+	client.ProcessInstance = &ProcessInstance{client: client}
+	client.UserTask = &userTaskApi{client: client}
+	client.Message = &Message{client: client}
+	client.History = &History{client: client}
+	client.Tenant = &Tenant{client: client}
+
+	return client
+}
+
 // SetCustomTransport set new custom transport
 func (c *Client) SetCustomTransport(customHTTPTransport http.RoundTripper) {
 	if c.httpClient != nil {
