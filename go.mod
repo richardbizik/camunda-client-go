@@ -1,4 +1,4 @@
-module github.com/richardbizik/camunda-client-go/v3
+module github.com/richardbizik/camunda-client-go
 
 go 1.14
 
