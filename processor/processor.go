@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	camundaclientgo "github.com/citilinkru/camunda-client-go/v3"
+	camundaclientgo "github.com/richardbizik/camunda-client-go"
 )
 
 // Processor external task processor
